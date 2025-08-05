@@ -2,9 +2,9 @@ import os
 import json
 import streamlit as st
 import requests
-import time  # Added missing import
-import random  # Added missing import
-import hashlib  # Added missing import
+import time 
+import random  
+import hashlib 
 from datetime import datetime, timedelta 
 from typing import Dict, List, Optional, Any
 import logging
@@ -109,9 +109,6 @@ class IBMWatsonMLClient:
     def check_rate_limits(self):
         """Check if we're hitting rate limits"""
         self.clean_request_tracking()
-        
-        # IBM typically allows 5-10 requests per minute in free tier
-        # These are example values - adjust based on your tier
         max_per_minute = 5
         max_per_hour = 100
         
