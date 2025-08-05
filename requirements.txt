@@ -1,0 +1,17 @@
+# Core app
+streamlit
+
+# IBM Cloud services
+ibm-cos-sdk
+ibm-watsonx-ai
+
+# PDF parsing
+PyPDF2
+
+# Environment variable loader
+python-dotenv
+
+# General utilities
+requests
+
+
