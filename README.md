@@ -1,147 +1,341 @@
-# IBM Agentic Research Assistant
+# IBM Academic Research Agent
 
 ![IBM Watson](https://img.shields.io/badge/Powered%20by-IBM%20Watson-blue)
-![Streamlit](https://img.shields.io/badge/Built%20with-Streamlit-FF4B4B)
-![License](https://img.shields.io/badge/License-MIT-green)
+![Python](https://img.shields.io/badge/Python-3.8%2B-green)
+![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange)
+![License](https://img.shields.io/badge/License-ILAN-blue)
 
-An intelligent research assistant that leverages IBM Watson ML models to analyze academic papers, generate summaries, citations, hypotheses, and section drafts.
+A powerful academic research assistant built with IBM watsonx.ai that helps researchers, students, and academics with comprehensive research tasks including literature analysis, citation generation, hypothesis development, and academic writing assistance.
+
+## 🎯 Project Overview
+
+This Academic Research Agent is designed specifically for the **IBM SkillsBuild for Academia program** and optimized for **IBM Cloud Lite tier services**. It provides intelligent research assistance without requiring document uploads or vector databases.
+
+### Key Capabilities
+
+- 🔍 **Literature Search & Analysis**: Find and summarize recent academic research
+- 📚 **Multi-Format Citations**: Generate APA, MLA, and IEEE citations automatically  
+- 🧪 **Hypothesis Generation**: Create testable research hypotheses
+- ✍️ **Academic Writing**: Draft paper sections (Introduction, Literature Review, Methodology)
+- 📊 **Structured Outputs**: Export results in JSON and Markdown formats
+- 🔄 **Research Workflows**: Pre-built templates for different research types
+- 🌐 **Web Search Integration**: Access current information via Google, DuckDuckGo, Wikipedia
 
 ## 📋 Features
 
-- **Text Analysis**: Extract key insights from academic papers
-- **Citation Generation**: Auto-generate citations in APA, MLA, and IEEE formats
-- **Hypothesis Development**: Generate testable hypotheses based on research questions
-- **Section Drafting**: Create academic section drafts for your research papers
-- **PDF Support**: Upload and extract text from PDF research papers
-- **Rate Limit Handling**: Smart handling of API rate limits with auto-retry
-- **Cloud Storage**: Automatic saving of outputs to IBM Cloud Object Storage
+### Core Research Tools
+- **Smart Literature Search**: Find relevant academic papers and sources
+- **Citation Generator**: Professional citation formatting in multiple styles
+- **Hypothesis Development**: Generate testable research hypotheses with rationales
+- **Section Drafting**: Create structured outlines for academic paper sections
+- **Research Synthesis**: Comprehensive analysis and gap identification
 
-## 🛠️ Installation
+### Advanced Features  
+- **Batch Processing**: Handle multiple research queries simultaneously
+- **Research Workflows**: Templates for literature reviews, research proposals, systematic reviews
+- **Export Utilities**: Save results in multiple formats (Markdown, JSON, PDF-ready)
+- **Interactive Interface**: Command-line interface with help system
+- **Memory Management**: Conversation history and session management
+
+### Web Integration
+- **Real-time Search**: Access to current research via web search engines
+- **Source Verification**: Multi-source validation for research claims
+- **Citation Tracking**: Automatic source attribution and reference management
+
+## 🛠️ Installation & Setup
 
 ### Prerequisites
 
 - Python 3.8 or higher
-- IBM Cloud account with Watson Machine Learning service
-- IBM Cloud Object Storage service (optional but recommended)
+- IBM Cloud account (Free Lite tier supported)
+- IBM watsonx.ai access
+- Jupyter Notebook or JupyterLab
 
-### Setup
+### Step 1: Clone Repository
 
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/yourusername/ibm-research-assistant.git
-   cd ibm-research-assistant
-   ```
+```bash
+https://github.com/HimanshuSingh-966/Research_assistant.git
+cd Research_assistant
+```
 
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+### Step 2: Install Dependencies
 
-3. Create a `.env` file in the project root with your IBM credentials:
-   ```
-   API_KEY=your_ibm_watson_api_key
-   DEPLOYMENT_ID=your_model_deployment_id
-   COS_API_KEY=your_cos_api_key
-   COS_INSTANCE_ID=your_cos_instance_id
-   COS_ENDPOINT=your_cos_endpoint
-   COS_BUCKET=your_bucket_name
-   ```
+```bash
+pip install -r requirements.txt
+```
 
-## ⚙️ Configuration
+### Step 3: Set Up IBM Cloud Credentials
 
-### Required Environment Variables
+1. Create an IBM Cloud account at [cloud.ibm.com](https://cloud.ibm.com)
+2. Create a watsonx.ai service instance
+3. Generate an API key from IBM Cloud IAM
+4. Note your project ID from watsonx.ai
 
-| Variable | Description |
-|----------|-------------|
-| `API_KEY` | IBM Watson Machine Learning API key |
-| `DEPLOYMENT_ID` | Deployment ID of your IBM Watson model |
+### Step 4: Configure Environment
 
-### Optional Environment Variables (for Cloud Storage)
+Create a `.env` file (optional) or export environment variables:
 
-| Variable | Description |
-|----------|-------------|
-| `COS_API_KEY` | IBM Cloud Object Storage API key |
-| `COS_INSTANCE_ID` | IBM Cloud Object Storage instance ID |
-| `COS_ENDPOINT` | IBM Cloud Object Storage endpoint URL |
-| `COS_BUCKET` | IBM Cloud Object Storage bucket name |
+```bash
+export PROJECT_ID=your-watsonx-project-id
+export SPACE_ID=your-watsonx-space-id  # if using spaces instead of projects
+```
 
 ## 🚀 Usage
 
-1. Start the application:
+### Option 1: Jupyter Notebook (Recommended)
+
+1. Open the notebook:
    ```bash
-   streamlit run app.py
+   jupyter notebook Research_Agent_NoteBook.ipynb
    ```
 
-2. Access the web interface at `http://localhost:8501`
+2. Run cells sequentially, entering your IBM Cloud API key when prompted
 
-3. Enter your research input or upload a PDF file
+3. Use the interactive interface or test functions
 
-4. Click "Generate Output" to analyze and process your research material
+### Option 2: Direct Python Execution
 
-## 💡 Using the Research Assistant
+```python
+from research_agent import create_research_agent, research_query
 
-### Upload Academic Material
-- Upload PDF papers or paste abstracts directly
-- Provide title, authors, journal information, and DOI
+# Initialize agent
+agent = create_research_agent()
 
-### Generate Research Outputs
-- Summaries are displayed as bullet points
-- Citations are formatted in multiple styles
-- Hypotheses are presented in a structured format
-- Section drafts are provided in a text area for easy copying
+# Make research queries
+result = research_query("Find recent research on climate change mitigation")
+print(result)
+```
 
-### Save and Download
-- All outputs are automatically saved to IBM Cloud Object Storage (if configured)
-- Download individual elements (citations, drafts) as needed
+## 💡 Using the Research Agent
 
-## ⚠️ Rate Limit Considerations
+### Basic Research Queries
 
-This application implements smart rate limit handling for the IBM Watson ML API:
+```python
+# Literature search
+result = test_literature_search("machine learning in healthcare")
 
-- Automatic retry with exponential backoff for 429 errors
-- Request caching to avoid redundant API calls
-- Visual feedback during rate limit waits
+# Generate citations  
+citation = test_citation_generation(
+    "Smith, J. & Doe, A.", 
+    "AI in Medical Diagnosis", 
+    "2024", 
+    "Journal of Medical AI", 
+    "APA"
+)
 
-Tips to avoid rate limits:
-- Space out your requests (wait a minute between submissions)
-- Use the example first to ensure everything works
-- Keep your abstracts concise for faster processing
-- Save your outputs to avoid repeating requests
+# Create hypotheses
+hypotheses = test_hypothesis_generation(
+    "Does social media usage affect student academic performance?"
+)
+
+# Draft paper sections
+intro = test_section_drafting("Introduction", "renewable energy policy")
+```
+
+### Advanced Research Workflows
+
+```python
+# Run comprehensive literature review
+report = run_research_workflow("artificial intelligence ethics", "literature_review")
+
+# Generate research proposal
+proposal = run_research_workflow("quantum computing applications", "research_proposal")
+
+# Create systematic review
+review = run_research_workflow("sustainable urban planning", "systematic_review")
+```
+
+### Interactive Commands
+
+- `help` - Show available commands and capabilities
+- `json` - Get next response in JSON format
+- `clear` - Start new research session  
+- `exit` - Quit the research agent
+
+## 📊 Research Workflows
+
+### Literature Review Workflow
+1. Find seminal papers and foundational research
+2. Identify current theoretical frameworks  
+3. Summarize recent empirical studies
+4. Analyze methodological approaches
+5. Identify research gaps and controversies
+6. Suggest synthesis of current knowledge
+
+### Research Proposal Workflow  
+1. Provide background and context
+2. Identify research problems and questions
+3. Generate testable hypotheses
+4. Suggest appropriate methodologies
+5. Analyze limitations and ethical considerations
+6. Discuss expected outcomes and significance
+
+### Systematic Review Workflow
+1. Define search strategy and inclusion criteria
+2. Identify key databases and sources
+3. Develop data extraction framework
+4. Analyze quality assessment criteria
+5. Synthesize findings across studies
+6. Discuss implications and recommendations
+
+## ⚙️ Configuration Options
+
+### Model Parameters (Optimized for Research)
+
+```python
+parameters = {
+    "frequency_penalty": 0.1,  # Reduce repetition
+    "max_tokens": 4000,       # Longer responses  
+    "presence_penalty": 0.1,  # Diverse vocabulary
+    "temperature": 0.3,       # Balanced creativity
+    "top_p": 0.9             # Good diversity
+}
+```
+
+### Available Models
+- `meta-llama/llama-3-3-70b-instruct` (Default - Best for complex reasoning)
+- Other IBM watsonx.ai supported models
+
+## 📤 Export & Integration
+
+### Export Formats
+- **Markdown**: Perfect for documentation and reports
+- **JSON**: Structured data for further processing
+- **Bibliography**: Formatted reference lists
+- **Research Reports**: Comprehensive multi-section documents
+
+### Integration Options
+- Reference managers (Zotero, Mendeley)
+- Writing software (LaTeX, Microsoft Word)  
+- Data analysis tools (Python, R)
+- Institutional repositories
+
+## 🔧 IBM Cloud Lite Optimization
+
+This project is specifically optimized for IBM Cloud Lite tier:
+
+- **Efficient API Usage**: Smart caching and request optimization
+- **Batch Processing**: Handle multiple queries efficiently  
+- **No Storage Requirements**: No need for premium storage services
+- **Memory Efficient**: Optimized for limited resource environments
+- **Rate Limit Handling**: Built-in retry logic for API limits
+
+## 📚 Example Use Cases
+
+### For Students
+- Literature reviews for assignments
+- Citation formatting for papers
+- Hypothesis development for thesis projects
+- Academic writing assistance
+
+### For Researchers  
+- Systematic literature reviews
+- Research proposal development
+- Gap analysis in research fields
+- Collaborative research planning
+
+### For Educators
+- Course material development
+- Research methodology teaching
+- Student research guidance
+- Academic writing instruction
+
+## ⚠️ Important Notes
+
+### Academic Integrity
+- Always verify information from multiple sources
+- Use as a research starting point, not final authority
+- Properly cite all sources in your work
+- Review and fact-check generated content
+
+### Best Practices
+- Be specific in research questions
+- Include context and background information
+- Specify desired output format
+- Cross-reference with academic databases
+- Maintain research logs and version control
+
+### Limitations
+- Based on web-accessible sources
+- May not include most recent publications
+- Requires internet connection for searches
+- Subject to IBM Cloud Lite tier limits
 
 ## 🔍 Troubleshooting
 
 ### Common Issues
 
-- **"API_KEY not set in .env file"**: Ensure your .env file contains the correct API key
-- **"Rate limit exceeded"**: Wait a few minutes before trying again
-- **"Error extracting PDF text"**: Check that your PDF is not encrypted or corrupted
-- **"Cloud Object Storage connection failed"**: Verify your COS credentials are correct
+**"Please enter your api key"**
+- Ensure you have a valid IBM Cloud API key
+- Check that watsonx.ai service is active
 
-### Debugging
+**"Rate limit exceeded"**  
+- Wait a few minutes between requests
+- Use batch processing for multiple queries
 
-- Check the application logs for detailed error information
-- Use the "Check Connections" button in the sidebar to verify API connectivity
-- Clear the cache if responses seem incorrect or outdated
+**"Model not found"**
+- Verify your project/space ID is correct
+- Check that the model is available in your region
+
+**"Connection error"**
+- Verify internet connection
+- Check IBM Cloud service status
+
+### Debug Mode
+
+Enable detailed logging:
+```python
+import logging
+logging.basicConfig(level=logging.DEBUG)
+```
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our contributing guidelines:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+Licensed Materials - Copyright © 2024 IBM. This project is released under the terms of the ILAN License. Use, duplication disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+
+**Note:** This Academic Research Agent is designed for educational use in the IBM SkillsBuild for Academia program.
 
 ## 🙏 Acknowledgments
 
-- IBM Watson for providing the ML capabilities
-- Streamlit for the web interface framework
-- PyPDF2 for PDF parsing functionality
+- **IBM watsonx.ai** - Core AI capabilities
+- **LangChain & LangGraph** - Agent framework
+- **IBM SkillsBuild for Academia** - Educational program support
+- **Open Source Community** - Various utility libraries
+
+## 📞 Support
+
+For support and questions:
+
+- Check the [troubleshooting section](#-troubleshooting)
+- Review [IBM watsonx.ai documentation](https://www.ibm.com/products/watsonx-ai)
+- Submit issues via GitHub Issues
+- Contact IBM SkillsBuild support for program-related questions
+
+## 🔮 Future Enhancements
+
+- Web interface with Streamlit
+- Integration with academic databases (PubMed, arXiv)
+- Advanced visualization capabilities
+- Collaborative research features
+- Mobile-responsive interface
+- API endpoint for external integrations
 
 ---
 
-## Technical Details
+**Ready to revolutionize your research workflow with AI?** 🚀
 
-This application uses several advanced techniques:
+Get started with the Academic Research Agent and experience the power of IBM watsonx.ai for academic research!
 
-- **Rate Limiting**: Custom implementation of request tracking and backoff
-- **Caching**: In-memory caching to reduce API calls
-- **Error Handling**: Robust error handling with informative user feedback
-- **Streaming Responses**: Support for streaming API responses to improve UX
+---
 
-For more information on IBM Watson services, visit the [IBM Cloud documentation](https://cloud.ibm.com/docs).
+*Built with ❤️ for the academic community*
